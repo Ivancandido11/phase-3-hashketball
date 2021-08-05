@@ -204,9 +204,11 @@ end
 def big_shoe_rebounds
   player = []
   game_hash.each do |team, data|
-    player << data[:players].sort do |player1, player2|
-      player2[:shoe] <=> player1[:shoe]
-    end
+    player << data[:players]
   end
-  player[0][0][:rebounds]
+  all_players = player[0].concat(player[1])
+  sorted = all_players.sort do |player1, player2|
+    player2[:shoe] <=> player1[:shoe]
+  end
+  sorted[0][:rebounds]
 end
