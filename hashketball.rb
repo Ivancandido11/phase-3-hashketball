@@ -140,3 +140,73 @@ def num_points_scored(player)
   end
   found_player[0][:points]
 end
+
+def shoe_size(player)
+  found_player = []
+  game_hash.each do |team, data|
+    data.each do |attribute, value|
+      if attribute == :players
+        pro = value.find do |name| 
+          name[:player_name] == player
+        end
+        pro ? found_player << pro : nil
+      end
+    end
+  end
+  found_player[0][:shoe]
+end
+
+def team_colors(team)
+  found_team = []
+  game_hash.each do |t, data|
+    if data[:team_name] == team
+      found_team << data[:colors]
+    end
+  end
+  found_team[0]
+end
+
+def team_names
+teams = []
+  game_hash.each do |team, data|
+    teams << data[:team_name]
+  end
+  teams
+end
+
+def player_numbers(team)
+  numbers = []
+  game_hash.each do |t, data|
+    if data[:team_name] == team
+      data[:players].map do |player|
+        numbers << player[:number]
+      end
+    end
+  end
+  numbers
+end
+
+def player_stats(player)
+  found_player = []
+  game_hash.each do |team, data|
+    data.each do |attribute, value|
+      if attribute == :players
+        pro = value.find do |name| 
+          name[:player_name] == player
+        end
+        pro ? found_player << pro : nil
+      end
+    end
+  end
+  found_player[0]
+end
+
+def big_shoe_rebounds
+  player = []
+  game_hash.each do |team, data|
+    player << data[:players].sort do |player1, player2|
+      player2[:shoe] <=> player1[:shoe]
+    end
+  end
+  player[0][0][:rebounds]
+end
